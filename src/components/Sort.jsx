@@ -5,20 +5,46 @@ import React from 'react'
 
 
 
-function Sort() {
+function Sort({ value, onClickSort }) {
 
   const [isVisibleSort, setIsVisivleSort] = React.useState(false)
 
-  const [activeSort, setActivrSort] = React.useState(0)
 
 
-  const onClickSort = (i) => {
-    setActivrSort(i)
-    setIsVisivleSort(!isVisibleSort)
+
+  const isVisiableSortPopupWidthClick = (objArr) => {
+    // setIsVisivleSort(!isVisibleSort)
+    onClickSort(objArr)
   }
 
-  const sortArr = ['популярности', 'цене', 'алфавиту']
-  const sortName = sortArr[activeSort];
+
+  const sortArr = [
+    {
+      name: 'популярности(DESC)',
+      sort: 'rating'
+    },
+    {
+      name: 'популярности(ASC)',
+      sort: '-rating'
+    },
+    {
+      name: 'цене(DESC)',
+      sort: 'price'
+    },
+    {
+      name: 'цене(ASC)',
+      sort: '-price'
+    },
+    {
+      name: 'алфавиту(DESC)',
+      sort: 'title'
+    },
+    {
+      name: 'алфавиту(ASC)',
+      sort: '-title'
+    }
+  ]
+
 
   return (
     <div className="sort">
@@ -37,13 +63,13 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisivleSort(!isVisibleSort)}>{sortName}</span>
+        <span onClick={() => setIsVisivleSort(!isVisibleSort)}>{value.name}</span>
       </div>
 
       {
         isVisibleSort && <div className="sort__popup">
           <ul>
-            {sortArr.map((arrName, i) => <li key={i} onClick={() => onClickSort(i)} className={activeSort === i ? 'active' : ''}>{arrName}</li>)}
+            {sortArr.map((objArr, i) => <li key={i} onClick={() => isVisiableSortPopupWidthClick(objArr)} className={value.sort === objArr.sort ? 'active' : ''}>{objArr.name}</li>)}
           </ul>
         </div>
       }
