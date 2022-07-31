@@ -13,7 +13,7 @@ function Sort({ value, onClickSort }) {
 
 
   const isVisiableSortPopupWidthClick = (objArr) => {
-    // setIsVisivleSort(!isVisibleSort)
+    setIsVisivleSort(!isVisibleSort)
     onClickSort(objArr)
   }
 
