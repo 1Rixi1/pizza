@@ -2,48 +2,52 @@
 import React from 'react'
 
 
+import { useSelector, useDispatch } from "react-redux";
+import { setSort } from '../redux/slices/filterSlices'
 
 
+const sortArr = [
+  {
+    name: 'популярности(DESC)',
+    sortType: 'rating'
+  },
+  {
+    name: 'популярности(ASC)',
+    sortType: '-rating'
+  },
+  {
+    name: 'цене(DESC)',
+    sortType: 'price'
+  },
+  {
+    name: 'цене(ASC)',
+    sortType: '-price'
+  },
+  {
+    name: 'алфавиту(DESC)',
+    sortType: 'title'
+  },
+  {
+    name: 'алфавиту(ASC)',
+    sortType: '-title'
+  }
+]
 
-function Sort({ value, onClickSort }) {
+function Sort() {
 
   const [isVisibleSort, setIsVisivleSort] = React.useState(false)
 
+  const sortActive = useSelector((state) => state.filterSlice.sort)
 
+  const dispatch = useDispatch()
 
 
   const isVisiableSortPopupWidthClick = (objArr) => {
     setIsVisivleSort(!isVisibleSort)
-    onClickSort(objArr)
+    dispatch(setSort(objArr))
   }
 
 
-  const sortArr = [
-    {
-      name: 'популярности(DESC)',
-      sort: 'rating'
-    },
-    {
-      name: 'популярности(ASC)',
-      sort: '-rating'
-    },
-    {
-      name: 'цене(DESC)',
-      sort: 'price'
-    },
-    {
-      name: 'цене(ASC)',
-      sort: '-price'
-    },
-    {
-      name: 'алфавиту(DESC)',
-      sort: 'title'
-    },
-    {
-      name: 'алфавиту(ASC)',
-      sort: '-title'
-    }
-  ]
 
 
   return (
@@ -63,13 +67,19 @@ function Sort({ value, onClickSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisivleSort(!isVisibleSort)}>{value.name}</span>
+        <span onClick={() => setIsVisivleSort(!isVisibleSort)}>{sortActive.name}</span>
       </div>
 
       {
         isVisibleSort && <div className="sort__popup">
           <ul>
-            {sortArr.map((objArr, i) => <li key={i} onClick={() => isVisiableSortPopupWidthClick(objArr)} className={value.sort === objArr.sort ? 'active' : ''}>{objArr.name}</li>)}
+            {sortArr.map((objArr, i) =>
+              <li
+                key={i}
+                onClick={() => isVisiableSortPopupWidthClick(objArr)}
+                className={sortActive.sortType === objArr.sortType ? 'active' : ''}>{objArr.name}
+              </li>)
+            }
           </ul>
         </div>
       }

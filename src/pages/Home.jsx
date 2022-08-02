@@ -9,6 +9,9 @@ import Pagination from '../components/Pagination/inde';
 import { SearchContextCreate } from '../App'
 
 
+import { setCategoryId } from '../redux/slices/filterSlices'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 const Home = () => {
 
@@ -21,17 +24,25 @@ const Home = () => {
   const [surrentPage, setCurrentPage] = React.useState(1)
 
 
-  const [categoryId, setCategoryId] = React.useState(0)
+  // categoriId
 
-  const [sortType, setSortType] = React.useState({
-    name: 'популярности',
-    sort: 'rating'
-  })
+  const { categoryId, sort } = useSelector((state) => state.filterSlice)
+
+
+  const dispatch = useDispatch()
+
+  const onClickCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
+
+  // Sort
+
+
 
 
   const categoryChange = categoryId === 0 ? '' : `category=${categoryId}`;
-  const order = sortType.sort.includes('-') ? `asc` : `desc`
-  const sortChange = sortType.sort.replace('-', '')
+  const order = sort.sortType.includes('-') ? `asc` : `desc`
+  const sortChange = sort.sortType.replace('-', '')
   const search = searchValue ? `search=${searchValue}` : '';
 
   React.useEffect(() => {
@@ -44,17 +55,20 @@ const Home = () => {
       })
 
     window.scrollTo(0, 0)
-  }, [categoryId, sortType, searchValue, surrentPage])
+  }, [categoryId, sort.sortType, searchValue, surrentPage])
 
 
   const pizzas = activePizzas.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
   const sketetons = [...new Array(6)].map((skeleton, index) => <Skeleton key={index} />)
 
+
+
+
   return (
     <div className='container'>
       <div className="content__top">
-        <Categories value={categoryId} onClickCategory={(i) => { setCategoryId(i) }} />
-        <Sort value={sortType} onClickSort={(objArr) => { setSortType(objArr) }} />
+        <Categories value={categoryId} onClickCategory={(id) => { onClickCategory(id) }} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
