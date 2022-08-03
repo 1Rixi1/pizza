@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSort } from '../redux/slices/filterSlices'
 
 
-const sortArr = [
+export const sortArr = [
   {
     name: 'популярности(DESC)',
     sortType: 'rating'
