@@ -113,27 +113,6 @@ const Home = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const pizzas = activePizzas.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
   const sketetons = [...new Array(6)].map((skeleton, index) => <Skeleton key={index} />)
 

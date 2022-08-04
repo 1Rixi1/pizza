@@ -47,11 +47,31 @@ function Sort() {
     dispatch(setSort(objArr))
   }
 
+  const sortRef = React.useRef()
+
+  React.useEffect(() => {
+
+    const onClickWithoutSort = (e) => {
+      if (!e.path.includes(sortRef.current)) {
+        setIsVisivleSort(false)
+        console.log('click')
+      }
+    }
+
+    document.body.addEventListener('click', onClickWithoutSort)
+
+    return () => {
+      document.body.removeEventListener('click', onClickWithoutSort)
+    }
+
+
+  }, [])
+
 
 
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
 
       <div className="sort__label">
         <svg
