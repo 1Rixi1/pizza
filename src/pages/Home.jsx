@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import axios from 'axios';
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +14,7 @@ import { SearchContextCreate } from '../App'
 
 import { setCategoryId, setPaginationCurrent, setParamsFilter } from '../redux/slices/filterSlices'
 import { useSelector, useDispatch } from 'react-redux'
+import { addFetchPizzas } from '../redux/slices/addPizzaSlice';
 
 
 const Home = () => {
@@ -27,13 +27,9 @@ const Home = () => {
 
   const { searchValue } = React.useContext(SearchContextCreate)
 
-
-  const [activePizzas, setActivePizzas] = React.useState([])
-  const [isLoadingPizzas, setsLoadingPizzas] = React.useState(false)
-
-
-
   const { categoryId, sort, activePaginatuinCurrent } = useSelector((state) => state.filterSlice)
+
+  const { pizzaItems, isLoadingPizza } = useSelector(state => state.pizza)
 
 
   const dispatch = useDispatch()
@@ -89,14 +85,26 @@ const Home = () => {
   const sortChange = sort.sortType.replace('-', '');
   const search = searchValue ? `search=${searchValue}` : '';
 
-  const axiosPizzas = () => {
-    setsLoadingPizzas(true)
+  const axiosPizzas = async () => {
+    // setsLoadingPizzas(true)
 
-    axios.get(`https://62cd07e7a43bf78008509237.mockapi.io/items?page=${activePaginatuinCurrent}&limit=4&${categoryChange}&sortBy=${sortChange}&order=${order}&${search}`)
-      .then(res => {
-        setActivePizzas(res.data)
-        setsLoadingPizzas(false)
-      })
+
+
+    dispatch(addFetchPizzas({
+      categoryChange,
+      order,
+      sortChange,
+      search,
+      activePaginatuinCurrent,
+    }))
+
+
+
+
+
+
+
+
   }
 
   React.useEffect(() => {
@@ -113,7 +121,7 @@ const Home = () => {
 
 
 
-  const pizzas = activePizzas.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
+  const pizzas = pizzaItems.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
   const sketetons = [...new Array(6)].map((skeleton, index) => <Skeleton key={index} />)
 
 
@@ -130,11 +138,24 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {
-          isLoadingPizzas ? sketetons : pizzas
-        }
-      </div>
+
+      {
+
+        isLoadingPizza === 'error' ?
+          <div className='content__error-info'>
+            <h2>Произошла ошибка😕</h2>
+            <p>
+              Не удалось получить пиццы! Попробуйте повторить позже
+            </p>
+          </div>
+          :
+          <div className='content__items'>
+            {isLoadingPizza === 'loading' ? sketetons : pizzas}
+          </div>
+
+      }
+
+
 
 
       <Pagination value={activePaginatuinCurrent} onChangePage={(number) => { onChangePage(number) }} />

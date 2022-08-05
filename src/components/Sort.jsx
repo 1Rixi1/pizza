@@ -54,7 +54,6 @@ function Sort() {
     const onClickWithoutSort = (e) => {
       if (!e.path.includes(sortRef.current)) {
         setIsVisivleSort(false)
-        console.log('click')
       }
     }
 
