@@ -1,9 +1,9 @@
 
 import React from 'react'
 
+import { selectSort, setSort } from '../redux/slices/filterSlices'
 
 import { useSelector, useDispatch } from "react-redux";
-import { setSort } from '../redux/slices/filterSlices'
 
 
 export const sortArr = [
@@ -37,7 +37,7 @@ function Sort() {
 
   const [isVisibleSort, setIsVisivleSort] = React.useState(false)
 
-  const sortActive = useSelector((state) => state.filterSlice.sort)
+  const sortActive = useSelector(selectSort)
 
   const dispatch = useDispatch()
 
