@@ -18,24 +18,18 @@ export const SearchContextCreate = React.createContext()
 
 function App() {
 
-  const [searchValue, setSearchValue] = React.useState()
-
-
-
   return (
     <div className="wrapper">
-      <SearchContextCreate.Provider value={{ searchValue, setSearchValue }}>
-        <Header />
-        <div className="content">
-          <div className="container">
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path="*" element={<NotFound />} />
-              <Route path='cart' element={<Cart />} />
-            </Routes>
-          </div>
+      <Header />
+      <div className="content">
+        <div className="container">
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path='cart' element={<Cart />} />
+          </Routes>
         </div>
-      </SearchContextCreate.Provider>
+      </div>
     </div>
 
   );

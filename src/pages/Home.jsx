@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
@@ -9,12 +9,12 @@ import PizzaBlock from '../components/PizzaBlock'
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
-import { SearchContextCreate } from '../App'
 
 
-import { setCategoryId, setPaginationCurrent, setParamsFilter } from '../redux/slices/filterSlices'
+
+import { selectfilter, setCategoryId, setPaginationCurrent, setParamsFilter } from '../redux/slices/filterSlices'
 import { useSelector, useDispatch } from 'react-redux'
-import { addFetchPizzas } from '../redux/slices/addPizzaSlice';
+import { addFetchPizzas, selectPizzas } from '../redux/slices/addPizzaSlice';
 
 
 const Home = () => {
@@ -25,11 +25,11 @@ const Home = () => {
   const isSearch = React.useRef(false)
   const isMounted = React.useRef(false)
 
-  const { searchValue } = React.useContext(SearchContextCreate)
 
-  const { categoryId, sort, activePaginatuinCurrent } = useSelector((state) => state.filterSlice)
 
-  const { pizzaItems, isLoadingPizza } = useSelector(state => state.pizza)
+  const { categoryId, sort, activePaginatuinCurrent, searchValue } = useSelector(selectfilter)
+
+  const { pizzaItems, isLoadingPizza } = useSelector(selectPizzas)
 
 
   const dispatch = useDispatch()
@@ -86,9 +86,6 @@ const Home = () => {
   const search = searchValue ? `search=${searchValue}` : '';
 
   const axiosPizzas = async () => {
-    // setsLoadingPizzas(true)
-
-
 
     dispatch(addFetchPizzas({
       categoryChange,
@@ -97,13 +94,6 @@ const Home = () => {
       search,
       activePaginatuinCurrent,
     }))
-
-
-
-
-
-
-
 
   }
 
