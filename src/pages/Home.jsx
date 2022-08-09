@@ -1,6 +1,6 @@
 import React from 'react'
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import Categories from '../components/Categories';
@@ -111,7 +111,7 @@ const Home = () => {
 
 
 
-  const pizzas = pizzaItems.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
+  const pizzas = pizzaItems.map(pizza => <Link to={`/pizza/${pizza.id}`} key={pizza.id}> <PizzaBlock {...pizza} /></Link>)
   const sketetons = [...new Array(6)].map((skeleton, index) => <Skeleton key={index} />)
 
 
