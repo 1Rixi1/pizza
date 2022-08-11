@@ -3,13 +3,18 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-const FullPizza = () => {
+const FullPizza: React.FC = () => {
 
   const navigate = useNavigate()
 
 
+  const [item, setItem] = useState<{
 
-  const [item, setItem] = useState('')
+    imageUrl: string;
+    title: string;
+    price: number;
+
+  }>()
 
   const { id } = useParams()
 
@@ -17,26 +22,27 @@ const FullPizza = () => {
 
     async function addFetchPizza() {
 
+
+    
+
       try {
         const { data } = await axios.get(`https://62cd07e7a43bf78008509237.mockapi.io/items/${id}`)
         setItem(data)
       } catch (error) {
-        alert('ERROR:', error)
+        alert(error)
         navigate('/')
       }
 
     }
 
-
     addFetchPizza()
-
 
   }, [])
 
 
 
   if (!item) {
-    return 'Загрузка...'
+    return <>Загрузка...</>
   }
 
 

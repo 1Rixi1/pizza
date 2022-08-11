@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
@@ -8,8 +7,13 @@ import { BrowserRouter, } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootEelement = document.getElementById('root')
 
+
+
+if(rootEelement) {
+  
+const root = ReactDOM.createRoot(rootEelement);
 
 root.render(
   <BrowserRouter>
@@ -18,4 +22,9 @@ root.render(
     </Provider>
   </BrowserRouter >
 );
+
+}
+
+
+
 

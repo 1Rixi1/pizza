@@ -1,8 +1,4 @@
-import React from 'react'
-
 import './scss/app.scss';
-
-import Header from './components/Header'
 
 import { Routes, Route } from "react-router-dom";
 
@@ -15,7 +11,7 @@ import MainLayout from './layouts/MainLayout';
 
 
 
-export const SearchContextCreate = React.createContext()
+
 
 
 function App() {
