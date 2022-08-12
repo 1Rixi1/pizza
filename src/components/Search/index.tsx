@@ -10,7 +10,7 @@ import { setSearchValue } from '../../redux/slices/filterSlices';
 
   const dispatch = useDispatch()
 
-  const [value, setValue] = React.useState()
+  const [value, setValue] = React.useState('')
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -31,10 +31,15 @@ import { setSearchValue } from '../../redux/slices/filterSlices';
   )
 
 
-  const onChangeInput = (e: any) => {
-    setValue(e.target.value)
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+ 
+      setValue(e.target.value)
+    
     sendDataValue(e.target.value)
   }
+
+
+ 
 
 
   return (

@@ -39,7 +39,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, price, imageUrl, count, 
     }
   }
 
-  const countPizza = items.reduce((sum, obj) => obj.count + sum, 0)
+  const countPizza = items.reduce((sum: any, obj: any) => obj.count + sum, 0)
 
 
 

@@ -65,7 +65,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ imageUrl, title, price, sizes, 
           {/* Добавление размеров (26, 30,40) */}
           <ul>
             {sizes.map((size, i) =>
-              <li key={i} type={i} className={activeSize === i ? 'active' : ''} onClick={() => setActiveSize(i)}>
+              <li key={i} className={activeSize === i ? 'active' : ''} onClick={() => setActiveSize(i)}>
                 {size}
               </li>)}
           </ul>

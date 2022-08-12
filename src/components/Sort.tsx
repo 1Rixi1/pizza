@@ -13,6 +13,10 @@ type SortArrItem = {
   sortType: string;
 }
 
+type PopupClick = MouseEvent & {
+  path: Node[]
+}
+
 
 export const sortArr:SortArrItem[] = [
   {
@@ -57,10 +61,19 @@ const Sort: React.FC = () => {
 
   const sortRef = React.useRef<HTMLDivElement>(null)
 
+
+
+
+
+
+
   React.useEffect(() => {
 
-    const onClickWithoutSort = (e: any) => {
-      if (!e.path.includes(sortRef.current)) {
+    const onClickWithoutSort = (e: MouseEvent) => {
+
+      const _e = e as PopupClick
+
+      if (sortRef.current && !_e.path.includes(sortRef.current)) {
         setIsVisivleSort(false)
       }
     }
@@ -73,6 +86,10 @@ const Sort: React.FC = () => {
 
 
   }, [])
+
+
+
+
 
 
 
