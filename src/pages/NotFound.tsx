@@ -3,7 +3,7 @@ import NotFoundInfo from '../components/NotFoundInfo';
 
 
 
-export const NotFound = () => {
+ const NotFound: React.FC = () => {
   return (
     <>
       <NotFoundInfo />

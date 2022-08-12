@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addFetchPizzas, selectPizzas } from '../redux/slices/addPizzaSlice';
 
 
-const Home = () => {
+const Home: React.FC = () => {
 
 
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Home = () => {
 
   const dispatch = useDispatch()
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id))
   }
 
@@ -87,7 +87,9 @@ const Home = () => {
 
   const axiosPizzas = async () => {
 
-    dispatch(addFetchPizzas({
+    dispatch(
+      // @ts-ignore
+      addFetchPizzas({
       categoryChange,
       order,
       sortChange,
@@ -111,13 +113,13 @@ const Home = () => {
 
 
 
-  const pizzas = pizzaItems.map(pizza => <Link to={`/pizza/${pizza.id}`} key={pizza.id}> <PizzaBlock {...pizza} /></Link>)
+  const pizzas = pizzaItems.map((pizza: any) => <Link to={`/pizza/${pizza.id}`} key={pizza.id}> <PizzaBlock {...pizza} /></Link>)
   const sketetons = [...new Array(6)].map((skeleton, index) => <Skeleton key={index} />)
 
 
 
-  const onChangePage = (number) => {
-    dispatch(setPaginationCurrent(number))
+  const onChangePage = (value: number) => {
+    dispatch(setPaginationCurrent(value))
   }
 
 

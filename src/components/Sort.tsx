@@ -6,7 +6,15 @@ import { selectSort, setSort } from '../redux/slices/filterSlices'
 import { useSelector, useDispatch } from "react-redux";
 
 
-export const sortArr = [
+
+
+type SortArrItem = {
+  name: string;
+  sortType: string;
+}
+
+
+export const sortArr:SortArrItem[] = [
   {
     name: 'популярности(DESC)',
     sortType: 'rating'
@@ -33,7 +41,7 @@ export const sortArr = [
   }
 ]
 
-function Sort() {
+const Sort: React.FC = () => {
 
   const [isVisibleSort, setIsVisivleSort] = React.useState(false)
 
@@ -42,16 +50,16 @@ function Sort() {
   const dispatch = useDispatch()
 
 
-  const isVisiableSortPopupWidthClick = (objArr) => {
+  const isVisiableSortPopupWidthClick = (objArr: SortArrItem) => {
     setIsVisivleSort(!isVisibleSort)
     dispatch(setSort(objArr))
   }
 
-  const sortRef = React.useRef()
+  const sortRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
 
-    const onClickWithoutSort = (e) => {
+    const onClickWithoutSort = (e: any) => {
       if (!e.path.includes(sortRef.current)) {
         setIsVisivleSort(false)
       }
@@ -74,6 +82,7 @@ function Sort() {
 
       <div className="sort__label">
         <svg
+          
           width="10"
           height="6"
           viewBox="0 0 10 6"
